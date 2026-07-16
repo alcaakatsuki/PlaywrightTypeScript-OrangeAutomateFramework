@@ -89,7 +89,6 @@ async selectEmployee(employeeName: string) {
     await option.click();
 }
 
- 
 // evento para seleccionar un evento de la lista desplegable
 async selectEvent(event: string) {
   await this.NewClaimEvent.click();
@@ -116,6 +115,15 @@ async selectReferenceId(ReferenceIdtxt: string) {
     .first();
     await option.waitFor({ state: 'visible' });
     await option.click();
+}
+
+// Metodo para selecionar View Details de un Claim en la tabla de resultados, filtrando por Reference ID
+async clickViewDetailsByReference(referenceId: string) {
+    const row = this.page
+        .locator('.oxd-table-body .oxd-table-card')
+        .filter({ hasText: referenceId });
+
+    await row.getByText('View Details').click();
 }
 
 

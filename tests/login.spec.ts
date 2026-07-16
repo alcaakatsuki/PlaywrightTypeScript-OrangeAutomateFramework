@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { AuthPage } from '../pages/auth';
 
-test('Login Successfuly', async ({ page, baseURL }) => {
+test('TC01 - Login Successfuly', async ({ page, baseURL }) => {
 
     const authPage = new AuthPage(page);
     await authPage.navigate();
@@ -10,7 +10,7 @@ test('Login Successfuly', async ({ page, baseURL }) => {
 
 });
 
-test('Login failed - empty fields', async ({ page, baseURL }) => {
+test('TC02 - Login failed - empty fields', async ({ page, baseURL }) => {
 
     const authPage = new AuthPage(page);
     await authPage.navigate();
@@ -23,7 +23,7 @@ test('Login failed - empty fields', async ({ page, baseURL }) => {
  
 });
 
-test('Login failed - wrong fields', async ({ page, baseURL }) => {
+test('TC03 - Login failed - wrong fields', async ({ page, baseURL }) => {
 
     const authPage = new AuthPage(page);
     await authPage.navigate();

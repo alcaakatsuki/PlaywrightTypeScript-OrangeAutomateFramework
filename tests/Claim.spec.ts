@@ -14,8 +14,10 @@ test.describe('Create Claim', () => {
         await authPage.navigate();
         claimPage = new ClaimPage(page);
     });
+    
+    
 
-    test('Create a Claim - Successfuly', async ({page}) => {
+    test('REQ02 - TS01 - Create a Claim - Successfuly', async ({page}) => {
         const authPage = new AuthPage(page);
         await authPage.navigate();
         await authPage.login('Admin', 'admin123');
@@ -35,19 +37,35 @@ test.describe('Create Claim', () => {
         console.log('Reference ID:', referenceId);
     });
 
-    test('Search Exist Claim in the Table', async ({page}) => {
+    test('REQ02 - TS02 - Search Exist Claim in the Table', async ({page}) => {
         const authPage = new AuthPage(page);
         await authPage.navigate();
         await authPage.login('Admin', 'admin123');
         await expect(page).toHaveURL(/dashboard/i);
         await dashboardPage.clickMenuByName('Claim');
         await expect(page).toHaveURL(/claim/);
-        await claimPage.selectReferenceId('02607140');
+        await claimPage.selectReferenceId('2026');
         await claimPage.searchButton.click();
         const rowText = await claimPage.recordsTableRows.first().textContent();
         console.log(rowText);
-        expect(rowText).toContain('02607140');
+        expect(rowText).toContain('2026');
+    });
 
+       test('REQ02 - TS03 - View Detail Exist Claim in the Table', async ({page}) => {
+        const authPage = new AuthPage(page);
+        await authPage.navigate();
+        await authPage.login('Admin', 'admin123');
+        await expect(page).toHaveURL(/dashboard/i);
+        await dashboardPage.clickMenuByName('Claim');
+        await expect(page).toHaveURL(/claim/);
+        const row = claimPage.recordsTableRows.filter({
+        hasText: '202307180000001'});
+        await expect(row).toHaveCount(1);
+        await claimPage.clickViewDetailsByReference('202307180000001');
+        await expect(claimPage.claimReferenceId).toBeVisible();
+        await expect(claimPage.claimReferenceId).toHaveValue(/\d+/);
+        const referenceId = await claimPage.getReferenceId();
+        console.log('Reference ID:', referenceId);
     });
 
 
