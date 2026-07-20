@@ -17,14 +17,14 @@ test.describe('Admin Module', () => {
     await adminPage.gotoAdmin();
   });
 
-  test('REQ03 - TS01 - Abrir admin y mostrar resultados al buscar por username', async () => {
+  test('REQ03 - TS01 - Open Admintab and show results by username Searching', async () => {
     await adminPage.searchByUsername('Admin');
     await adminPage.expectAtLeastOneResult();
     const count = await adminPage.getResultCount();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('REQ03 - TS02 - Filtrar por rol de usuario y Status', async () => {
+  test('REQ03 - TS02 - Filter by rol user and status', async () => {
     await adminPage.selectUserRole('Admin');
     await adminPage.selectStatus('Enabled');
     await adminPage.clickSearch();
@@ -33,7 +33,7 @@ test.describe('Admin Module', () => {
     expect(count).toBeGreaterThan(0);
   });
 
-  test('REQ03 - TS03 - Limpiar filtros con Boton "Reset"', async ({ page }) => {
+  test('REQ03 - TS03 - Clean filter using "Reset" Button"', async ({ page }) => {
     await adminPage.searchByUsername('Admin');
     await adminPage.clickReset();
     await expect(adminPage.usernameInput).toHaveValue('');
